@@ -1,7 +1,8 @@
 fastapi
 uvicorn
 x402
-x402[fastapi]
-x402[evm]
 cdp-sdk
 python-dotenv
+eth-abi
+eth-account
+web3
