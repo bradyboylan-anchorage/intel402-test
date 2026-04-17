@@ -1,4 +1,5 @@
 fastapi
 uvicorn
-x402[fastapi]
+x402[fastapi,evm]
+cdp-sdk
 python-dotenv
