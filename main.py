@@ -39,7 +39,10 @@ class CdpAuthProvider(AuthProvider):
         )
 
 
-app = FastAPI(title="Brady Go Fund Me")
+app = FastAPI(
+    title="Brady Go Fund Me",
+    description="Pay Brady and receive a polite compliment via Slack. The more you pay, the better the compliment.",
+)
 
 # x402 payment server — Base mainnet via CDP facilitator
 server = x402ResourceServer(
@@ -54,11 +57,31 @@ server.register("eip155:8453", ExactEvmServerScheme())
 
 # Protected routes
 routes = {
-    "GET /test": RouteConfig(
+    "GET /compliment": RouteConfig(
         accepts=[
             PaymentOption(
                 scheme="exact",
                 price="$1.00",
+                network="eip155:8453",
+                pay_to=PAY_TO,
+            )
+        ]
+    ),
+    "GET /nice-compliment": RouteConfig(
+        accepts=[
+            PaymentOption(
+                scheme="exact",
+                price="$10.00",
+                network="eip155:8453",
+                pay_to=PAY_TO,
+            )
+        ]
+    ),
+    "GET /amazing-compliment": RouteConfig(
+        accepts=[
+            PaymentOption(
+                scheme="exact",
+                price="$100.00",
                 network="eip155:8453",
                 pay_to=PAY_TO,
             )
@@ -74,10 +97,28 @@ async def health():
     return {"status": "ok"}
 
 
-@app.get("/test")
-async def test_endpoint():
+@app.get("/compliment")
+async def compliment():
     return {
-        "message": "Payment successful!",
-        "amount": "1.00 USDC",
-        "network": "Base",
+        "tier": "compliment",
+        "price": "1.00 USDC",
+        "message": "Payment received! Brady will send you a polite compliment via Slack.",
+    }
+
+
+@app.get("/nice-compliment")
+async def nice_compliment():
+    return {
+        "tier": "nice-compliment",
+        "price": "10.00 USDC",
+        "message": "Payment received! Brady will send you a thoughtful, personalized compliment via Slack.",
+    }
+
+
+@app.get("/amazing-compliment")
+async def amazing_compliment():
+    return {
+        "tier": "amazing-compliment",
+        "price": "100.00 USDC",
+        "message": "Payment received! Brady will send you a legendary, life-affirming compliment via Slack. You will feel unstoppable.",
     }
