@@ -39,7 +39,7 @@ class CdpAuthProvider(AuthProvider):
         )
 
 
-app = FastAPI(title="Intel402 Test Merchant")
+app = FastAPI(title="Brady Go Fund Me")
 
 # x402 payment server — Base mainnet via CDP facilitator
 server = x402ResourceServer(
