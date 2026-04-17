@@ -40,7 +40,7 @@ class CdpAuthProvider(AuthProvider):
 
 
 app = FastAPI(
-    title="Brady Go Fund Me",
+    title="A Compliment from Brady via Slack",
     description="Pay Brady and receive a polite compliment via Slack. The more you pay, the better the compliment.",
 )
 
